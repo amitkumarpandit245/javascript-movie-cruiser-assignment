@@ -12,7 +12,7 @@ function getMovies(event)
         }
     }).then(movieData=>{
 
-            const tbody = document.getElementsByTagName('li')[0];
+            const tbody = document.getElementById('moviesList');
             let stdInnerHtml='';
             movieData.forEach(movie => {
                 stdInnerHtml = stdInnerHtml + `
@@ -28,7 +28,7 @@ function getMovies(event)
                                         <h4>${movie.title}</h4>
                                         </tr>
                                         <tr>
-                                            <button class="btn btn-primary">Add To Favourite</button>
+                                            <button class="btn btn-primary" onclick="addFavourite('+${movie.id}+')">Add To Favourite</button>
                                         </tr>
                                         </table>
                                     </tr>
@@ -40,11 +40,75 @@ function getMovies(event)
     })
 }
 
-function getFavourites() {
 
+function getFavourites(event) {
+    fetch('http://localhost:3000/favourites')
+    .then(response=>{
+        if(response.status == 200)
+        {
+            return Promise.resolve(response.json());
+        }
+        else
+        {
+            return Promise.reject(new Error('Unable to fetch the data'));
+        }
+    }).then(favMovieData=>{
+
+            const tbody = document.getElementById('favouritesList');
+            let stdInnerHtml='';
+            favMovieData.forEach(movie => {
+                stdInnerHtml = stdInnerHtml + `
+                                    <tr>
+                                        <table>
+                                        <tr>
+                                       
+                                        </tr>
+                                        <tr>
+                                            <img src="${movie.posterPath}" width="200" height="250"/>
+                                        </tr>
+                                        <tr>
+                                        <h4>${movie.title}</h4>
+                                        </tr>
+                                        </table>
+                                    </tr>
+                                `;                
+                                tbody.innerHTML=stdInnerHtml;
+            });
+    }).catch(err=>{
+        console.log(err);
+    })
 }
 
-function addFavourite() {
+function addFavourite(id) {
+    let title;
+    let path;
+    
+    const favmovie={
+        "title":title,
+        "posterPath":path,
+        }
+
+        fetch('http://localhost:3000/movies/'+id,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json'
+            }
+        }).then(response=>response.json())
+        .then(data => {
+            title=data.title;
+            path=data.posterPath;
+            var p1 = new Promise(
+                (resolve, reject) => {
+                    fetch('http://localhost:3000/favourites', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(favmovie)
+                    });
+                }
+            );
+        });
 
 }
 

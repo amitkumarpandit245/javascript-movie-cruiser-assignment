@@ -7,21 +7,19 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/public/css/style.css">
 </head>
-<body onload="getMovies(event)">
+<body>
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-6"> <!-- Bootstrap classes can be modified as desired -->
-				<h2>Movies</h2>
-				<ul id="moviesList">
-					<li></li>
-		
+				<h2>Moviesss</h2>
+				<ul id="moviesList" onload="getMovies(event)">
 					<!-- Fill the Movies data here -->
 
 				</ul>
 			</div>
 			<div class="col-12 col-md-6"> <!-- Bootstrap classes can be modified as desired -->
-				<h2 align="center">Favourites</h2>
-				<ul id="favouritesList">
+				<h2>Favourites</h2>
+				<ul id="favouritesList" onload="getFavourites(event)">
 						
 					<!-- Fill the Favourites data here -->	
 
