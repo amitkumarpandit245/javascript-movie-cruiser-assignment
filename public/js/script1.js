@@ -22,13 +22,13 @@ function getMovies() {
             <tr>
             <table>
             <tr>
-           
-            </tr>
-            <tr>
-                <img src="${movie.posterPath}" width="200" height="250"/>
-            </tr>
-            <tr>
             <h4>${movie.title}</h4>
+            </tr>
+            <tr>
+                <img src="${movie.posterPath}" width="300" height="300"/>
+            </tr>
+            <tr>
+            
             </tr>
             <tr>
                 <button class="btn btn-primary" onclick="addFavourite(${movie.id})">Add To Favourite</button>
@@ -64,13 +64,13 @@ function getFavourites() {
             <tr>
             <table>
             <tr>
-           
-            </tr>
-            <tr>
-                <img src="${fMov.posterPath}" width="200" height="250"/>
-            </tr>
-            <tr>
             <h4>${fMov.title}</h4>
+            </tr>
+            <tr>
+                <img src="${fMov.posterPath}" width="300" height="300"/>
+            </tr>
+            <tr>
+            <button class="btn btn-primary" onclick="deleteFromFavourite(${fMov.id})">Delete From Favourite</button>
             </tr>
             </table>
             </tr>
@@ -108,7 +108,28 @@ let fav = favouriteMovies.filter(f => {
 		});
 	}
 }
-	
+//Function to Delete From favourite
+
+function deleteFromFavourite(id){
+    let delFav=favouriteMovies.filter(m=>{
+        return m.id===id;
+    });
+    if(delFav.length<0){
+        throw new Error("Invalid Movie");
+    }
+    else{
+        return fetch(favURL+'/'+id,{
+            method:'DELETE',
+            body:JSON.stringify(delFav[0]),
+            headers:{'Content-Type':'application/json'}
+        }).then(function(response){
+            return response.json();
+        }).then(function(df){
+            favouriteMovies.pop(df);
+            return favouriteMovies;
+        });
+    }
+}
 
 module.exports = {
 	getMovies,

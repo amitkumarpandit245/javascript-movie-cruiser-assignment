@@ -41,16 +41,6 @@
       "id": 3,
       "title": "Chak De India",
       "posterPath": "/public/images/chakde.jpeg"
-    },
-    {
-      "id": 1,
-      "title": "Lagaan",
-      "posterPath": "/public/images/lagaan.jpeg"
-    },
-    {
-      "id": 4,
-      "title": "Dangal",
-      "posterPath": "/public/images/dangal.jpeg"
     }
   ]
 }
